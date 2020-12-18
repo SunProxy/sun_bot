@@ -77,7 +77,7 @@ func LoadConfig() Config {
 		cfg.Discord.Token = "TOKENHERE"
 	}
 	data, _ = yaml.Marshal(cfg)
-	if err := ioutil.WriteFile("config.toml", data, 0644); err != nil {
+	if err := ioutil.WriteFile("config.yml", data, 0644); err != nil {
 		log.Fatalf("error writing config file: %v", err)
 	}
 	return cfg

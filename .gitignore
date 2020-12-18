@@ -91,4 +91,4 @@ fabric.properties
 
 .idea/
 
-config.yml
+./config.yml

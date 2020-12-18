@@ -72,7 +72,6 @@ jobs:
             env GOOS=windows GOARCH=amd64 go build -o sun_bot_windows64.exe;
             env GOOS=windows GOARCH=arm go build -o sun_bot_windows32.exe;
             env GOOS=darwin GOARCH=amd64 go build -o sun_bot_darwin64;
-            env GOOS=darwin GOARCH=arm go build -o sun_bot_darwin32;
       - run:
           name: make Artifact Folder
           command: |

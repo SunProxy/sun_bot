@@ -47,17 +47,17 @@ var cmds commandMap.CmdMap
 type SunCommand interface {
 	GetName() string
 	Setname(newname string)
-	Execute(ctx ctx.Ctx,session *discordgo.Session) error
+	Execute(ctx ctx.Ctx, session *discordgo.Session) error
 	GetHelp() HelpMsg
 }
 
-
 type HelpMsg struct {
-	Usage string
+	Usage       string
 	Description string
 }
 
-func RegisterCommands(cmdMap commandMap.CmdMap)  {
-
+func RegisterCommands(cmdMap commandMap.CmdMap) {
+	cmdMap.RegisterCommand("help", Help{}, true)
+	cmdMap.RegisterCommand("build", Build{}, true)
+	cmdMap.RegisterCommand("mock", Mock{}, true)
 }
-

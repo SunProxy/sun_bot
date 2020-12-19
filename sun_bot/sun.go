@@ -41,20 +41,32 @@ import (
 	"github.com/Jviguy/SpeedyCmds"
 	"github.com/Jviguy/SpeedyCmds/command/commandMap"
 	"github.com/bwmarrin/discordgo"
+	"github.com/jszwedko/go-circleci"
+	"io/ioutil"
+	"net/http"
 	"os"
 	"os/signal"
+	"regexp"
+	"strconv"
+	"strings"
 	"syscall"
 )
 
+var client circleci.Client
+
 func Start() error {
 	cfg := LoadConfig()
+	client = circleci.Client{Token: cfg.CircleCI.Token}
 	dg, err := discordgo.New(cfg.Discord.Token)
 	if err != nil {
 		return err
 	}
 	cmdMap := commandMap.New()
-	_ = SpeedyCmds.New(dg,cmdMap, true, "sun@root$")
-	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsAll)
+	dg.StateEnabled = true
+	h := SpeedyCmds.New(dg, cmdMap, true, "sun@root")
+	RegisterCommands(h.GetCommandHandler())
+	dg.AddHandler(onMessage)
+	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsGuildMessages | discordgo.IntentsDirectMessages | discordgo.IntentsGuildMembers)
 	err = dg.Open()
 	if err != nil {
 		return err
@@ -64,4 +76,30 @@ func Start() error {
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt, os.Kill)
 	<-sc
 	return dg.Close()
+}
+
+func onMessage(session *discordgo.Session, msg *discordgo.MessageCreate) {
+	// Groups -> 1: repo; 2: file; 3: line-from; 4: line-to
+	var re = regexp.MustCompile(`http(?:s|)://github\.com/(.*?/.*?/)blob/(.*?/.*?)#L([0-9]+)-?L?([0-9]+)?`)
+	match := re.FindAllStringSubmatch(msg.Content, -1)
+	if len(match) == 0 {
+		return
+	}
+	resp, err := http.Get("https://raw.githubusercontent.com/" + match[0][1] + match[0][2])
+	if err != nil {
+		return
+	}
+	body, _ := ioutil.ReadAll(resp.Body)
+	lines := strings.Split(string(body), "\n")
+	lfrom, _ := strconv.Atoi(match[0][3])
+	lto, _ := strconv.Atoi(match[0][4])
+	send := ""
+	if lto != -1 {
+		for lfrom-1 < lto {
+			lfrom++
+			send += fmt.Sprintf("%v > %v", lfrom, lines[lfrom]+"\n")
+		}
+	}
+	fmt.Println(send)
+	_, _ = session.ChannelMessageSend(msg.ChannelID, send)
 }

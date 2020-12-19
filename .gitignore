@@ -92,3 +92,5 @@ fabric.properties
 .idea/
 
 config.yml
+
+*.html

@@ -47,6 +47,9 @@ type Config struct {
 	Discord struct {
 		Token string
 	}
+	CircleCI struct {
+		Token string
+	}
 }
 
 func LoadConfig() Config {
@@ -75,6 +78,9 @@ func LoadConfig() Config {
 	}
 	if cfg.Discord.Token == "" {
 		cfg.Discord.Token = "TOKENHERE"
+	}
+	if cfg.CircleCI.Token == "" {
+		cfg.CircleCI.Token = "TOKENHERE"
 	}
 	data, _ = yaml.Marshal(cfg)
 	if err := ioutil.WriteFile("config.yml", data, 0644); err != nil {

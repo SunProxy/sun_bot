@@ -49,7 +49,7 @@ type Help struct {
 }
 
 func (h Help) GetHelp() HelpMsg {
-	return HelpMsg{"~help <COMMAND>","Returns the help message for the given command!"}
+	return HelpMsg{"sun@root help <COMMAND>", "Returns the help message for the given command!"}
 }
 
 func (h Help) GetName() string {
@@ -67,25 +67,24 @@ func (h Help) Execute(ctx ctx.Ctx, session *discordgo.Session) error {
 			em.Title = ctx.GetArgs()[0]
 			em.Description = "Usage: " + cmd.(SunCommand).GetHelp().Usage + "\n" +
 				"Description: " + cmd.(SunCommand).GetHelp().Description
-			em.Color = rgb(150,200,255).ToInteger()
+			em.Color = rgb(150, 200, 255).ToInteger()
 			em.Thumbnail = &discordgo.MessageEmbedThumbnail{URL: sunimg}
-			_,_ = session.ChannelMessageSendEmbed(ctx.GetChannel().ID, em)
+			_, _ = session.ChannelMessageSendEmbed(ctx.GetChannel().ID, em)
 			return nil
 		}
-		em := & discordgo.MessageEmbed{Title: "Unknown Command"}
+		em := &discordgo.MessageEmbed{Title: "Unknown Command"}
 		em.Description = "You might have meant " + utils.FindClosest(ctx.GetArgs()[0], utils.GetAllKeysCommands(cmds.GetCommands()))
 		em.Color = rgb(255, 0, 0).ToInteger()
 		em.Thumbnail = &discordgo.MessageEmbedThumbnail{URL: sunimg}
-		_,_ = session.ChannelMessageSendEmbed(ctx.GetChannel().ID, em)
+		_, _ = session.ChannelMessageSendEmbed(ctx.GetChannel().ID, em)
 		return nil
 	}
 	em := &discordgo.MessageEmbed{}
 	em.Title = "Help"
 	em.Description = "Usage: " + h.GetHelp().Usage + "\n" +
 		"Description: " + h.GetHelp().Description
-	em.Color = rgb(150,200,255).ToInteger()
+	em.Color = rgb(150, 200, 255).ToInteger()
 	em.Thumbnail = &discordgo.MessageEmbedThumbnail{URL: sunimg}
-	_,_ = session.ChannelMessageSendEmbed(ctx.GetChannel().ID, em)
+	_, _ = session.ChannelMessageSendEmbed(ctx.GetChannel().ID, em)
 	return nil
 }
-

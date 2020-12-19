@@ -41,7 +41,10 @@ import (
 	"log"
 )
 
-func main()  {
+func main() {
 	err := sun_bot.Start()
-	log.Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("Shut off naturally")
 }

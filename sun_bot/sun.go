@@ -67,6 +67,7 @@ func Start() error {
 	RegisterCommands(h.GetCommandHandler())
 	dg.AddHandler(onMessage)
 	dg.AddHandler(onJoin)
+	dg.AddHandler(onLeave)
 	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsGuildMessages | discordgo.IntentsDirectMessages | discordgo.IntentsGuildMembers)
 	err = dg.Open()
 	if err != nil {
@@ -127,4 +128,11 @@ func onJoin(session *discordgo.Session, member *discordgo.GuildMemberAdd) {
 	em.Color = rgb(150, 200, 255).ToInteger()
 	em.Thumbnail = &discordgo.MessageEmbedThumbnail{URL: build[0].VCSURL + "/blob/master/SunProxy.png?raw=true"}
 	_, _ = session.ChannelMessageSendEmbed("790271339322671135", em)
+}
+
+func onLeave(session *discordgo.Session, member *discordgo.GuildMemberRemove) {
+	em := &discordgo.MessageEmbed{Title: "I caught a moon lover on his way out!"}
+	em.Description = "His name was " + member.Mention() + "!"
+	em.Thumbnail = &discordgo.MessageEmbedThumbnail{URL: "https://i.redd.it/iysl5f5vrxe31.jpg"}
+	_, _ = session.ChannelMessageSendEmbed("790300380001075231", em)
 }

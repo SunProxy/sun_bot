@@ -60,4 +60,6 @@ func RegisterCommands(cmdMap commandMap.CmdMap) {
 	cmdMap.RegisterCommand("help", Help{}, true)
 	cmdMap.RegisterCommand("build", Build{}, true)
 	cmdMap.RegisterCommand("mock", Mock{}, true)
+	cmdMap.RegisterCommand("ping", Ping{}, true)
+	cmds = cmdMap
 }

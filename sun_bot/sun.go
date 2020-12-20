@@ -66,6 +66,7 @@ func Start() error {
 	h := SpeedyCmds.New(dg, cmdMap, true, "sun@root")
 	RegisterCommands(h.GetCommandHandler())
 	dg.AddHandler(onMessage)
+	dg.AddHandler(onJoin)
 	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsGuildMessages | discordgo.IntentsDirectMessages | discordgo.IntentsGuildMembers)
 	err = dg.Open()
 	if err != nil {
@@ -102,4 +103,28 @@ func onMessage(session *discordgo.Session, msg *discordgo.MessageCreate) {
 	}
 	fmt.Println(send)
 	_, _ = session.ChannelMessageSend(msg.ChannelID, send)
+}
+
+func onJoin(session *discordgo.Session, member *discordgo.GuildMemberAdd) {
+	_ = session.GuildMemberRoleAdd(member.GuildID, member.User.ID, "787812497796104192")
+	_, _ = session.ChannelMessageSend("790271339322671135", "Welcome to SunProxy's discord "+member.Mention())
+	em := &discordgo.MessageEmbed{Title: "Welcome!"}
+	em.Description = "This discord provides support and also development ideas and recommendations on sun proxy!"
+	em.Fields = make([]*discordgo.MessageEmbedField, 0)
+	build, _ := client.ListRecentBuildsForProject("SunProxy", "sun", "master", "", 1, 0)
+	em.Fields = append(em.Fields, &discordgo.MessageEmbedField{Name: "Latest Build: ",
+		Value:  fmt.Sprintf("[%v](%s), [Download Here](%s)", build[0].BuildNum, build[0].BuildURL, GenerateArtifactUrl(build[0].BuildNum)),
+		Inline: false,
+	})
+	em.Fields = append(em.Fields, &discordgo.MessageEmbedField{Name: "Channels: ",
+		Value: fmt.Sprintf("For Support head to <#787786998995615756>\n" +
+			"For General Chatting head to <#787786916840865803>\n" +
+			"For Development help or api usage head to <#787786964853850144>\n" +
+			"For keeping up with builds and commits head to <#787794545152491570>\n" +
+			"For using me or other bots head to <#789710042299236392>"),
+		Inline: false,
+	})
+	em.Color = rgb(150, 200, 255).ToInteger()
+	em.Thumbnail = &discordgo.MessageEmbedThumbnail{URL: build[0].VCSURL + "/blob/master/SunProxy.png?raw=true"}
+	_, _ = session.ChannelMessageSendEmbed("790271339322671135", em)
 }

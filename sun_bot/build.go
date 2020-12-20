@@ -31,18 +31,17 @@ func (b Build) Execute(ctx ctx.Ctx, session *discordgo.Session) error {
 		if err != nil {
 			switch ctx.GetArgs()[0] {
 			case "latest":
-				build, err := client.ListRecentBuildsForProject("SunProxy", "sun", "master", "", 1, 0)
-				if err != nil {
-					return fmt.Errorf("unknown build: %v", ctx.GetArgs()[1])
-				}
+				builds, _ := client.ListRecentBuildsForProject("SunProxy", "sun", "master", "", 1, 0)
+				build, _ := client.GetBuild("SunProxy", "sun", builds[0].BuildNum)
 				em := &discordgo.MessageEmbed{Title: "Information on Build " + ctx.GetArgs()[0] + "!"}
 				fields := make([]*discordgo.MessageEmbedField, 0)
-				for _, step := range build[0].Steps {
+				for _, step := range build.Steps {
 					fields = append(fields, &discordgo.MessageEmbedField{Name: step.Name, Value: step.Actions[0].Status, Inline: true})
 				}
 				em.Fields = fields
 				em.Color = rgb(211, 20, 124).ToInteger()
 				_, err = session.ChannelMessageSendEmbed(ctx.GetChannel().ID, em)
+				return nil
 			case "recent":
 				builds, err := client.ListRecentBuildsForProject("SunProxy", "sun", "master", "", -1, 0)
 				if err != nil {

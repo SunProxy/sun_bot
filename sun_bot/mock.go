@@ -21,7 +21,7 @@ func (m Mock) Setname(newname string) {
 
 func (m Mock) Execute(ctx ctx.Ctx, session *discordgo.Session) error {
 	msg := strings.Join(ctx.GetArgs(), " ")
-	send := ""
+	var send string
 	for _, c := range msg {
 		if rand.Intn(100) < 50 && c > 96 && c < 123 {
 			send += string(c ^ 0x20)

@@ -132,7 +132,7 @@ func onJoin(session *discordgo.Session, member *discordgo.GuildMemberAdd) {
 
 func onLeave(session *discordgo.Session, member *discordgo.GuildMemberRemove) {
 	em := &discordgo.MessageEmbed{Title: "I caught a moon lover on his way out!"}
-	em.Description = "His name was " + member.Mention() + "!"
+	em.Description = "His name was " + member.Mention() + " || " + member.User.Username + "!"
 	em.Color = rgb(255, 0, 0).ToInteger()
 	em.Thumbnail = &discordgo.MessageEmbedThumbnail{URL: "https://i.redd.it/iysl5f5vrxe31.jpg"}
 	_, _ = session.ChannelMessageSendEmbed("790300380001075231", em)

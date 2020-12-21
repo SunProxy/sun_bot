@@ -3,6 +3,7 @@ package sun_bot
 import (
 	"github.com/Jviguy/SpeedyCmds/command/ctx"
 	"github.com/bwmarrin/discordgo"
+	"strings"
 )
 
 type Kick struct {
@@ -18,10 +19,13 @@ func (k Kick) Setname(newname string) {
 }
 
 func (k Kick) Execute(ctx ctx.Ctx, session *discordgo.Session) error {
+	if ctx.GetAuthor().ID != "789633382933069906" {
+		return nil
+	}
 	var reason = ""
 	for k, arg := range ctx.GetArgs() {
 		if arg == "reason" || arg == "r" {
-			reason = ctx.GetArgs()[k+1]
+			reason = strings.Join(ctx.GetArgs()[k:], " ")
 		}
 	}
 	for _, mention := range ctx.GetMessage().Mentions {

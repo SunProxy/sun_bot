@@ -81,7 +81,7 @@ func Start() error {
 }
 
 func onMessage(session *discordgo.Session, msg *discordgo.MessageCreate) {
-	if len(msg.Mentions) > 4 && msg.ID != "431853152518668294" {
+	if len(msg.Mentions) > 4 && msg.Author.ID != "431853152518668294" {
 		_ = session.GuildMemberDeleteWithReason(msg.GuildID, msg.Author.ID, "You have been auto kicked for pinging too many members at once!")
 		return
 	}

@@ -81,6 +81,10 @@ func Start() error {
 }
 
 func onMessage(session *discordgo.Session, msg *discordgo.MessageCreate) {
+	if len(msg.Mentions) > 4 && msg.ID != "431853152518668294" {
+		_ = session.GuildMemberDeleteWithReason(msg.GuildID, msg.Author.ID, "You have been auto kicked for pinging too many members at once!")
+		return
+	}
 	// Groups -> 1: repo; 2: file; 3: line-from; 4: line-to
 	var re = regexp.MustCompile(`http(?:s|)://github\.com/(.*?/.*?/)blob/(.*?/.*?)#L([0-9]+)-?L?([0-9]+)?`)
 	match := re.FindAllStringSubmatch(msg.Content, -1)

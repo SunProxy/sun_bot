@@ -42,7 +42,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var cmds commandMap.Map
+var cmds *commandMap.Map
 
 type SunCommand interface {
 	Execute(ctx ctx.Ctx, session *discordgo.Session) error

@@ -37,7 +37,7 @@ SOFTWARE.
 package main
 
 import (
-	"github.com/sun_proxy/sun_bot/sun_bot"
+	"github.com/sunproxy/sun_bot/sun_bot"
 	"log"
 )
 

@@ -1,4 +1,4 @@
-module github.com/sun_proxy/sun_bot
+module github.com/sunproxy/sun_bot
 
 go 1.14
 

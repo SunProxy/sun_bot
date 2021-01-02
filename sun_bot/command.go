@@ -42,11 +42,9 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
-var cmds commandMap.CmdMap
+var cmds commandMap.Map
 
 type SunCommand interface {
-	GetName() string
-	Setname(newname string)
 	Execute(ctx ctx.Ctx, session *discordgo.Session) error
 	GetHelp() HelpMsg
 }
@@ -56,7 +54,7 @@ type HelpMsg struct {
 	Description string
 }
 
-func RegisterCommands(cmdMap commandMap.CmdMap) {
+func RegisterCommands(cmdMap commandMap.Map) {
 	cmdMap.RegisterCommand("help", Help{}, true)
 	cmdMap.RegisterCommand("build", Build{}, true)
 	cmdMap.RegisterCommand("mock", Mock{}, true)

@@ -64,7 +64,7 @@ func Start() error {
 	cmdMap := commandMap.New()
 	dg.StateEnabled = true
 	h := SpeedyCmds.New(dg, cmdMap, true, "sun@root")
-	RegisterCommands(h.GetCommandHandler())
+	RegisterCommands(h.GetCommandMap())
 	dg.AddHandler(onMessage)
 	dg.AddHandler(onJoin)
 	dg.AddHandler(onLeave)

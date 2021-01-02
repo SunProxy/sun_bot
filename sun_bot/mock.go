@@ -8,15 +8,6 @@ import (
 )
 
 type Mock struct {
-	name string
-}
-
-func (m Mock) GetName() string {
-	return m.name
-}
-
-func (m Mock) Setname(newname string) {
-	m.name = newname
 }
 
 func (m Mock) Execute(ctx ctx.Ctx, session *discordgo.Session) error {

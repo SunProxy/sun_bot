@@ -2,6 +2,8 @@ github.com/Jviguy/SpeedyCmds v0.0.5 h1:JYlJ6/Wx4IyqGdy0rWlym1jpdhTsLvNrPtWH+PUf7
 github.com/Jviguy/SpeedyCmds v0.0.5/go.mod h1:+ZSLJ8jobcvMHs5vd82tNdFfc5YnOwYTULY+SbiE0Mw=
 github.com/Jviguy/SpeedyCmds v0.0.7 h1:EcVviYgsD5gQpWNu3qW1nS3yr5WGNtSV6Yiv4SBAlCU=
 github.com/Jviguy/SpeedyCmds v0.0.7/go.mod h1:+ZSLJ8jobcvMHs5vd82tNdFfc5YnOwYTULY+SbiE0Mw=
+github.com/Jviguy/SpeedyCmds v0.0.9 h1:7c+dphaBXIDaK1LdEVltG6t5HmMUTfXFqSXvVNsg/Ws=
+github.com/Jviguy/SpeedyCmds v0.0.9/go.mod h1:+ZSLJ8jobcvMHs5vd82tNdFfc5YnOwYTULY+SbiE0Mw=
 github.com/agnivade/levenshtein v1.1.0 h1:n6qGwyHG61v3ABce1rPVZklEYRT8NFpCMrpZdBUbYGM=
 github.com/agnivade/levenshtein v1.1.0/go.mod h1:veldBMzWxcCG2ZvUTKD2kJNRdCk5hVbJomOvKkmgYbo=
 github.com/arbovm/levenshtein v0.0.0-20160628152529-48b4e1c0c4d0 h1:jfIu9sQUG6Ig+0+Ap1h4unLjW6YQJpKZVmUzxsD4E/Q=

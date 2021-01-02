@@ -8,15 +8,6 @@ import (
 )
 
 type Ping struct {
-	name string
-}
-
-func (p Ping) GetName() string {
-	return p.name
-}
-
-func (p Ping) Setname(newname string) {
-	p.name = newname
 }
 
 func (p Ping) Execute(ctx ctx.Ctx, session *discordgo.Session) error {

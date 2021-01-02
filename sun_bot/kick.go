@@ -7,15 +7,6 @@ import (
 )
 
 type Kick struct {
-	name string
-}
-
-func (k Kick) GetName() string {
-	return k.name
-}
-
-func (k Kick) Setname(newname string) {
-	k.name = newname
 }
 
 func (k Kick) Execute(ctx ctx.Ctx, session *discordgo.Session) error {

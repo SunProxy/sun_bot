@@ -9,20 +9,11 @@ import (
 )
 
 type Build struct {
-	name string
 }
 
 func (b Build) GetHelp() HelpMsg {
 	return HelpMsg{"sun@root build <INT or STRING> <INT or STRING>", "Returns build info on Builds and can rebuild " +
 		"/ find artifacts of certain ones!"}
-}
-
-func (b Build) GetName() string {
-	return b.name
-}
-
-func (b Build) Setname(newname string) {
-	b.name = newname
 }
 
 func (b Build) Execute(ctx ctx.Ctx, session *discordgo.Session) error {

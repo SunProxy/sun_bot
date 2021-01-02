@@ -45,19 +45,10 @@ import (
 var sunimg = "https://cdn.discordapp.com/attachments/787786916840865803/789586385090772992/sun.png"
 
 type Help struct {
-	name string
 }
 
 func (h Help) GetHelp() HelpMsg {
 	return HelpMsg{"sun@root help <COMMAND>", "Returns the help message for the given command!"}
-}
-
-func (h Help) GetName() string {
-	return h.name
-}
-
-func (h Help) Setname(newname string) {
-	h.name = newname
 }
 
 func (h Help) Execute(ctx ctx.Ctx, session *discordgo.Session) error {

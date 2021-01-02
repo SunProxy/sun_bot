@@ -54,7 +54,7 @@ type HelpMsg struct {
 	Description string
 }
 
-func RegisterCommands(cmdMap commandMap.Map) {
+func RegisterCommands(cmdMap *commandMap.Map) {
 	cmdMap.RegisterCommand("help", Help{}, true)
 	cmdMap.RegisterCommand("build", Build{}, true)
 	cmdMap.RegisterCommand("mock", Mock{}, true)

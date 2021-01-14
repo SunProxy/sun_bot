@@ -60,5 +60,6 @@ func RegisterCommands(cmdMap *commandMap.Map) {
 	cmdMap.RegisterCommand("mock", Mock{}, true)
 	cmdMap.RegisterCommand("ping", Ping{}, true)
 	cmdMap.RegisterCommand("kick", Kick{}, true)
+	cmdMap.RegisterCommand("ban", Ban{}, true)
 	cmds = cmdMap
 }

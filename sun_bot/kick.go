@@ -15,7 +15,7 @@ func (k Kick) Execute(ctx ctx.Ctx, session *discordgo.Session) error {
 	}
 	var reason = ""
 	for k, arg := range ctx.GetArgs() {
-		if arg == "reason" || arg == "r" {
+		if arg == "reason" || arg == "-r" {
 			reason = strings.Join(ctx.GetArgs()[k:], " ")
 		}
 	}
